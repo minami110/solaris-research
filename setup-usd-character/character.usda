@@ -1,0 +1,13 @@
+#usda 1.0
+(
+    endTimeCode = 24
+    framesPerSecond = 24
+    metersPerUnit = 1
+    startTimeCode = 1
+    subLayers = [
+        @./character.anim.usda@,
+        @./character.geo.usda@
+    ]
+    timeCodesPerSecond = 24
+)
+
