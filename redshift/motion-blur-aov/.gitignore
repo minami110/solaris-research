@@ -1,0 +1,5 @@
+# Ignore rendering images
+/render
+
+# Ignore stage
+/stage.usd

@@ -1,0 +1,1 @@
+- Required `Redshift for Solaris` plugin

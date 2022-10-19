@@ -1,0 +1,95 @@
+#! /home/minami/.local/Nuke/13.2v2/libnuke-13.2.2.so -nx
+version 13.2 v2
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="1472" w="2560" h="1371" maximized="1" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1897" stretch="1"/>
+            <splitter orientation="2">
+                <split size="780"/>
+                <dock id="" activePageId="Viewer.1" focus="true">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="548"/>
+                <dock id="" activePageId="DAG.1">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="615"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+                <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name /home/minami/Desktop/solaris-research/redshift/motion-blur-aov/comp.nk
+ project_directory "\[python \{nuke.script_directory()\}]"
+ last_frame 24
+ lock_range true
+ format "1280 720 0 0 1280 720 1 HD_720"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement OCIO
+ OCIO_config aces_1.2
+ defaultViewerLUT "OCIO LUTs"
+ workingSpaceLUT scene_linear
+ monitorLut ACES/sRGB
+ monitorOutLUT "sRGB (ACES)"
+ int8Lut matte_paint
+ int16Lut texture_paint
+ logLut compositing_log
+ floatLut scene_linear
+}
+Read {
+ inputs 0
+ file_type exr
+ file render/aov.####.exr
+ format "1280 720 0 0 1280 720 1 HD_720"
+ last 24
+ origlast 24
+ origset true
+ version 1
+ colorspace compositing_linear
+ name Read1
+ xpos 70
+ ypos -120
+}
+add_layer {V V.red V.green V.blue}
+Shuffle2 {
+ fromInput1 {{0} B}
+ in1 V
+ out1 forward
+ fromInput2 {{0} B}
+ mappings "2 V.red 0 0 forward.u 0 0 V.green 0 1 forward.v 0 1"
+ name Shuffle1
+ xpos 70
+ ypos 14
+}
+VectorBlur2 {
+ channels rgb
+ uv forward
+ uv_offset 1
+ scale 3.6
+ name VectorBlur1
+ xpos 70
+ ypos 55
+}
+Viewer {
+ frame 1
+ frame_range 1-24
+ channels rgb
+ viewerProcess "sRGB (ACES)"
+ name Viewer1
+ xpos 70
+ ypos 134
+}
