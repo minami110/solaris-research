@@ -1,3 +1,6 @@
 # Houdini backup files
 *bak*.hip
 *bak*.hda
+
+# Nuke backup files
+*.nk~
